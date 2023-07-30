@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express()
-const port = 5000;
+const port = process.env.port || 5000;
+
 const mongoose = require("mongoose")
 const { mongoURL } = require("./keys")
 const cors = require("cors")
@@ -20,6 +21,17 @@ mongoose.connection.on("connected", () => {
 
 mongoose.connection.on("error", () => {
     console.log("Not connected to mongo");
+})
+
+app.use(express.static(path.join(__dirname, "./frontend/build")))
+
+app.get("*", (req, res) => {
+    res.sendFile(
+        path.join(__dirname, "./frontend/build/index.html"),
+        function (err) {
+            res.status(500).send(err)
+        }
+    )
 })
 
 app.listen(port, () => {
