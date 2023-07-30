@@ -13,7 +13,7 @@ export default function Createpost() {
     useEffect(() => {
 
         if (url) {
-            fetch("http://localhost:5000/createPost", {
+            fetch("/createPost", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function Createpost() {
             .catch(err => console.log(err))
         
         //saving post mongodb
-        fetch("http://localhost:5000/createPost", {
+        fetch("/createPost", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
